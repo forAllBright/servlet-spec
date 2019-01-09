@@ -29,7 +29,7 @@ import java.util.Locale;
  *
  * <p>To send binary data in a MIME body response, use
  * the {@link ServletOutputStream} returned by {@link #getOutputStream}.
- * To send character data, use the <code>PrintWriter</code> object 
+ * To send character data, use the <code>PrintWriter</code> object
  * returned by {@link #getWriter}. To mix binary and text data,
  * for example, to create a multipart response, use a
  * <code>ServletOutputStream</code> and manage the character sections
@@ -38,7 +38,7 @@ import java.util.Locale;
  * <p>The charset for the MIME body response can be specified explicitly
  * using any of the following techniques: per request, per web-app (using
  * {@link ServletContext#setRequestCharacterEncoding}, deployment descriptor),
- * and per container (for all web applications deployed in that container, 
+ * and per container (for all web applications deployed in that container,
  * using vendor specific configuration).
  * If multiple of the preceding techniques have been employed, the priority is
  * the order listed.
@@ -51,8 +51,8 @@ import java.util.Locale;
  * <code>setContentType</code>, or <code>setLocale</code> method must
  * be called before <code>getWriter</code> and before committing
  * the response for the character encoding to be used.
- * 
- * <p>See the Internet RFCs such as 
+ *
+ * <p>See the Internet RFCs such as
  * <a href="http://www.ietf.org/rfc/rfc2045.txt">
  * RFC 2045</a> for more information on MIME. Protocols such as SMTP
  * and HTTP define profiles of MIME, and those standards
@@ -62,9 +62,10 @@ import java.util.Locale;
  *
  * @see ServletOutputStream
  */
- 
+ // 容器方法该接口类型对象给 service()方法进行处理,该接口中不限定协议的定义了一些方法,来设置
+// 响应对象的字符类型,body 内容长度,缓冲区大小,冲刷缓冲区,重置缓冲区,响应字符写入对象,响应二进制数据流写入对象(只能选一个)
 public interface ServletResponse {
-    
+
     /**
      * Returns the name of the character encoding (MIME charset)
      * used for the body sent in this response.
@@ -89,7 +90,7 @@ public interface ServletResponse {
      * the character encoding, for example, <code>UTF-8</code>
      */
     public String getCharacterEncoding();
-    
+
     /**
      * Returns the content type used for the MIME body
      * sent in this response. The content type proper must
@@ -110,21 +111,21 @@ public interface ServletResponse {
      * @since Servlet 2.4
      */
     public String getContentType();
-    
-    
+
+
 
     /**
-     * Returns a {@link ServletOutputStream} suitable for writing binary 
+     * Returns a {@link ServletOutputStream} suitable for writing binary
      * data in the response. The servlet container does not encode the
-     * binary data.  
+     * binary data.
      *
      * <p> Calling flush() on the ServletOutputStream commits the response.
      *
-     * Either this method or {@link #getWriter} may 
+     * Either this method or {@link #getWriter} may
      * be called to write the body, not both, except when {@link #reset}
      * has been called.
      *
-     * @return a {@link ServletOutputStream} for writing binary data 
+     * @return a {@link ServletOutputStream} for writing binary data
      *
      * @exception IllegalStateException if the <code>getWriter</code> method
      * has been called on this response
@@ -135,7 +136,7 @@ public interface ServletResponse {
      * @see #reset
      */
     public ServletOutputStream getOutputStream() throws IOException;
-    
+
     /**
      * Returns a <code>PrintWriter</code> object that
      * can send character text to the client.
@@ -143,7 +144,7 @@ public interface ServletResponse {
      * encoding returned by {@link #getCharacterEncoding}.
      * If the response's character encoding has not been
      * specified as described in <code>getCharacterEncoding</code>
-     * (i.e., the method just returns the default value 
+     * (i.e., the method just returns the default value
      * <code>ISO-8859-1</code>), <code>getWriter</code>
      * updates it to <code>ISO-8859-1</code>.
      * <p>Calling flush() on the <code>PrintWriter</code>
@@ -151,9 +152,9 @@ public interface ServletResponse {
      * <p>Either this method or {@link #getOutputStream} may be called
      * to write the body, not both, except when {@link #reset}
      * has been called.
-     * 
-     * @return a <code>PrintWriter</code> object that 
-     * can return character data to the client 
+     *
+     * @return a <code>PrintWriter</code> object that
+     * can return character data to the client
      *
      * @exception java.io.UnsupportedEncodingException
      * if the character encoding returned
@@ -171,7 +172,7 @@ public interface ServletResponse {
      * @see #reset
      */
     public PrintWriter getWriter() throws IOException;
-    
+
     /**
      * Sets the character encoding (MIME charset) of the response
      * being sent to the client, for example, to UTF-8.
@@ -209,21 +210,21 @@ public interface ServletResponse {
      * @since Servlet 2.4
      */
     public void setCharacterEncoding(String charset);
-    
+
     /**
      * Sets the length of the content body in the response
      * In HTTP servlets, this method sets the HTTP Content-Length header.
      *
-     * @param len an integer specifying the length of the 
+     * @param len an integer specifying the length of the
      * content being returned to the client; sets the Content-Length header
      */
     public void setContentLength(int len);
-    
+
     /**
      * Sets the length of the content body in the response
      * In HTTP servlets, this method sets the HTTP Content-Length header.
      *
-     * @param len a long specifying the length of the 
+     * @param len a long specifying the length of the
      * content being returned to the client; sets the Content-Length header
      *
      * @since Servlet 3.1
@@ -249,7 +250,7 @@ public interface ServletResponse {
      * the protocol provides a way for doing so. In the case of HTTP,
      * the <code>Content-Type</code> header is used.
      *
-     * @param type a <code>String</code> specifying the MIME 
+     * @param type a <code>String</code> specifying the MIME
      * type of the content
      *
      * @see #setLocale
@@ -260,23 +261,23 @@ public interface ServletResponse {
      */
 
     public void setContentType(String type);
-    
+
 
     /**
-     * Sets the preferred buffer size for the body of the response.  
-     * The servlet container will use a buffer at least as large as 
+     * Sets the preferred buffer size for the body of the response.
+     * The servlet container will use a buffer at least as large as
      * the size requested.  The actual buffer size used can be found
      * using <code>getBufferSize</code>.
      *
      * <p>A larger buffer allows more content to be written before anything is
      * actually sent, thus providing the servlet with more time to set
-     * appropriate status codes and headers.  A smaller buffer decreases 
+     * appropriate status codes and headers.  A smaller buffer decreases
      * server memory load and allows the client to start receiving data more
      * quickly.
      *
      * <p>This method must be called before any response body content is
      * written; if content has been written or the response object has
-     * been committed, this method throws an 
+     * been committed, this method throws an
      * <code>IllegalStateException</code>.
      *
      * @param size the preferred buffer size
@@ -290,7 +291,7 @@ public interface ServletResponse {
      * @see 		#reset
      */
     public void setBufferSize(int size);
-   
+
     /**
      * Returns the actual buffer size used for the response.  If no buffering
      * is used, this method returns 0.
@@ -303,10 +304,10 @@ public interface ServletResponse {
      * @see #reset
      */
     public int getBufferSize();
-    
+
     /**
      * Forces any content in the buffer to be written to the client.  A call
-     * to this method automatically commits the response, meaning the status 
+     * to this method automatically commits the response, meaning the status
      * code and headers will be written.
      *
      * @see #setBufferSize
@@ -319,11 +320,11 @@ public interface ServletResponse {
      *
      */
     public void flushBuffer() throws IOException;
-    
+
     /**
      * Clears the content of the underlying buffer in the response without
-     * clearing headers or status code. If the 
-     * response has been committed, this method throws an 
+     * clearing headers or status code. If the
+     * response has been committed, this method throws an
      * <code>IllegalStateException</code>.
      *
      * @see #setBufferSize
@@ -335,10 +336,10 @@ public interface ServletResponse {
      */
 
     public void resetBuffer();
-    
+
     /**
      * Returns a boolean indicating if the response has been
-     * committed.  A committed response has already had its status 
+     * committed.  A committed response has already had its status
      * code and headers written.
      *
      * @return  a boolean indicating if the response has been
@@ -351,7 +352,7 @@ public interface ServletResponse {
      *
      */
     public boolean isCommitted();
-    
+
     /**
      * Clears any data that exists in the buffer as well as the status code,
      * headers.  The state of calling {@link #getWriter} or
@@ -361,7 +362,7 @@ public interface ServletResponse {
      * {@link #getOutputStream} have been called before this method,
      * then the corrresponding returned Writer or OutputStream will be
      * staled and the behavior of using the stale object is undefined.
-     * If the response has been committed, this method throws an 
+     * If the response has been committed, this method throws an
      * <code>IllegalStateException</code>.
      *
      * @exception IllegalStateException  if the response has already been
@@ -373,7 +374,7 @@ public interface ServletResponse {
      * @see #isCommitted
      */
     public void reset();
-    
+
     /**
      * Sets the locale of the response, if the response has not been
      * committed yet. It also sets the response's character encoding
@@ -381,7 +382,7 @@ public interface ServletResponse {
      * been explicitly set using {@link #setContentType} or
      * {@link #setCharacterEncoding}, <code>getWriter</code> hasn't
      * been called yet, and the response hasn't been committed yet.
-     * If the deployment descriptor contains a 
+     * If the deployment descriptor contains a
      * <code>locale-encoding-mapping-list</code> element, and that
      * element provides a mapping for the given locale, that mapping
      * is used. Otherwise, the mapping from locale to character
@@ -403,7 +404,7 @@ public interface ServletResponse {
      * cannot be communicated via HTTP headers if the servlet does not
      * specify a content type; however, it is still used to encode text
      * written via the servlet response's writer.
-     * 
+     *
      * @param loc the locale of the response
      *
      * @see #getLocale
@@ -411,7 +412,7 @@ public interface ServletResponse {
      * @see #setCharacterEncoding
      */
     public void setLocale(Locale loc);
-    
+
     /**
      * Returns the locale specified for this response
      * using the {@link #setLocale} method. Calls made to
@@ -420,7 +421,7 @@ public interface ServletResponse {
      * the container's default locale is returned.
      *
      * @return the Locale for this response.
-     * 
+     *
      * @see #setLocale
      */
     public Locale getLocale();
