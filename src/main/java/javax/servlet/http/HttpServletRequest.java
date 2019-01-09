@@ -36,6 +36,7 @@ import javax.servlet.ServletRequest;
  * @author 	Various
  */
 
+// 定义了 HTTP 层面的请求的解析和处理.
 public interface HttpServletRequest extends ServletRequest {
 
     /**
@@ -240,10 +241,10 @@ public interface HttpServletRequest extends ServletRequest {
      * call to {@link javax.servlet.ServletContext#getNamedDispatcher},
      * the returned {@code HttpServletMapping} is the one corresponding
      * to the path for the mapping last applied to this request.</p>
-     * 
+     *
      * <p>The returned object is immutable.  Servlet 4.0 compliant
      * implementations must override this method.</p>
-     * 
+     *
      * @implSpec The default implementation returns a {@code
      * HttpServletMapping} that returns the empty string for the match
      * value, pattern and servlet name and {@code null} for the match
@@ -251,10 +252,10 @@ public interface HttpServletRequest extends ServletRequest {
      *
      * @return An instance of {@code HttpServletMapping} describing the manner in which
      * the current request was invoked.
-     * 
+     *
      * @since 4.0
      */
-    
+
     default public HttpServletMapping getHttpServletMapping() {
         return new HttpServletMapping() {
             @Override
@@ -280,17 +281,17 @@ public interface HttpServletRequest extends ServletRequest {
             @Override
             public String toString() {
                 return "MappingImpl{" + "matchValue=" + getMatchValue()
-                        + ", pattern=" + getPattern() + ", servletName=" 
-                        + getServletName() + ", mappingMatch=" + getMappingMatch() 
+                        + ", pattern=" + getPattern() + ", servletName="
+                        + getServletName() + ", mappingMatch=" + getMappingMatch()
                         + "} HttpServletRequest {" + HttpServletRequest.this.toString()
                         + '}';
             }
-            
-            
-            
+
+
+
         };
     }
-    
+
     /**
      * Returns the name of the HTTP method with which this
      * request was made, for example, GET, POST, or PUT.
@@ -820,13 +821,13 @@ public interface HttpServletRequest extends ServletRequest {
      * <p>The returned map is not backed by the {@code HttpServletRequest} object,
      * so changes in the returned map are not reflected in the
      * {@code HttpServletRequest} object, and vice-versa.</p>
-     * 
+     *
      * <p>{@link #isTrailerFieldsReady()} should be called first to determine
      * if it is safe to call this method without causing an exception.</p>
      *
      * @implSpec
      * The default implementation returns an empty map.
-     * 
+     *
      * @return A map of trailer fields in which all the keys are in lowercase,
      * regardless of the case they had at the protocol level. If there are no
      * trailer fields, yet {@link #isTrailerFieldsReady} is returning true,
