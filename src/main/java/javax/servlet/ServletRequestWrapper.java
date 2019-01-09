@@ -37,17 +37,18 @@ import java.util.Map;
 
 public class ServletRequestWrapper implements ServletRequest {
 
+// 装饰器模式
     private ServletRequest request;
 
     /**
-     * Creates a ServletRequest adaptor wrapping the given request object. 
+     * Creates a ServletRequest adaptor wrapping the given request object.
      * @throws java.lang.IllegalArgumentException if the request is null
      *
      * @param request the {@link ServletRequest} to be wrapped
      */
     public ServletRequestWrapper(ServletRequest request) {
         if (request == null) {
-            throw new IllegalArgumentException("Request cannot be null");   
+            throw new IllegalArgumentException("Request cannot be null");
         }
         this.request = request;
     }
@@ -64,12 +65,12 @@ public class ServletRequestWrapper implements ServletRequest {
 
 
     /**
-     * Sets the request object being wrapped. 
+     * Sets the request object being wrapped.
      *
      * @param request the {@link ServletRequest} to be installed
      *
      * @throws java.lang.IllegalArgumentException if the request is null.
-     * 
+     *
      */
     public void setRequest(ServletRequest request) {
         if (request == null) {
@@ -83,6 +84,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * The default behavior of this method is to call getAttribute(String name)
      * on the wrapped request object.
      */
+// 装饰器模式
     public Object getAttribute(String name) {
         return this.request.getAttribute(name);
     }
@@ -92,15 +94,17 @@ public class ServletRequestWrapper implements ServletRequest {
      * The default behavior of this method is to return getAttributeNames()
      * on the wrapped request object.
      */
+// 装饰器模式
     public Enumeration<String> getAttributeNames() {
         return this.request.getAttributeNames();
-    }    
+    }
 
 
     /**
      * The default behavior of this method is to return getCharacterEncoding()
      * on the wrapped request object.
      */
+// 装饰器模式
     public String getCharacterEncoding() {
         return this.request.getCharacterEncoding();
     }
@@ -110,6 +114,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * The default behavior of this method is to set the character encoding
      * on the wrapped request object.
      */
+// 装饰器模式
     public void setCharacterEncoding(String enc)
             throws UnsupportedEncodingException {
         this.request.setCharacterEncoding(enc);
@@ -120,6 +125,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * The default behavior of this method is to return getContentLength()
      * on the wrapped request object.
      */
+// 装饰器模式
     public int getContentLength() {
         return this.request.getContentLength();
     }
@@ -318,13 +324,13 @@ public class ServletRequestWrapper implements ServletRequest {
         return this.request.getRealPath(path);
     }
 
-    
+
     /**
      * The default behavior of this method is to return
      * getRemotePort() on the wrapped request object.
      *
      * @since Servlet 2.4
-     */    
+     */
     public int getRemotePort(){
         return this.request.getRemotePort();
     }
@@ -346,7 +352,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * getLocalAddr() on the wrapped request object.
      *
      * @since Servlet 2.4
-     */       
+     */
     public String getLocalAddr(){
         return this.request.getLocalAddr();
     }
@@ -382,7 +388,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * {@link ServletRequest#startAsync} on the wrapped request object.
      *
      * @return the (re)initialized AsyncContext
-     * 
+     *
      * @throws IllegalStateException if the request is within the scope of
      * a filter or servlet that does not support asynchronous operations
      * (that is, {@link #isAsyncSupported} returns false),
@@ -399,7 +405,7 @@ public class ServletRequestWrapper implements ServletRequest {
     public AsyncContext startAsync() throws IllegalStateException {
         return request.startAsync();
     }
-    
+
 
     /**
      * The default behavior of this method is to invoke
@@ -472,9 +478,9 @@ public class ServletRequestWrapper implements ServletRequest {
      * @return the AsyncContext that was created or reinitialized by the
      * most recent invocation of {@link #startAsync} or
      * {@link #startAsync(ServletRequest,ServletResponse)} on
-     * the wrapped request 
+     * the wrapped request
      *
-     * @throws IllegalStateException if this request has not been put 
+     * @throws IllegalStateException if this request has not been put
      * into asynchronous mode, i.e., if neither {@link #startAsync} nor
      * {@link #startAsync(ServletRequest,ServletResponse)} has been called
      *
@@ -482,6 +488,7 @@ public class ServletRequestWrapper implements ServletRequest {
      *
      * @since Servlet 3.0
      */
+// 装饰器模式
     public AsyncContext getAsyncContext() {
         return request.getAsyncContext();
     }
@@ -544,7 +551,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * Gets the dispatcher type of the wrapped request.
      *
      * @return the dispatcher type of the wrapped request
-     * 
+     *
      * @see ServletRequest#getDispatcherType
      *
      * @since Servlet 3.0
