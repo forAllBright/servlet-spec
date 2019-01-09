@@ -21,13 +21,15 @@ import java.util.Enumeration;
 
 /**
  * A servlet configuration object used by a servlet container
- * to pass information to a servlet during initialization. 
+ * to pass information to a servlet during initialization.
  */
+// 定义了对配置信息的获取方法, 容器通过这个接口对象来将容器中知道的配置信息最为一个对象传送给 servlet,以
+// 供 servlet 后续从中获取所需信息使用.
  public interface ServletConfig {
-    
+
     /**
      * Returns the name of this servlet instance.
-     * The name may be provided via server administration, assigned in the 
+     * The name may be provided via server administration, assigned in the
      * web application deployment descriptor, or for an unregistered (and thus
      * unnamed) servlet instance it will be the servlet's class name.
      *
@@ -42,20 +44,20 @@ import java.util.Enumeration;
      *
      * @return	a {@link ServletContext} object, used
      * by the caller to interact with its servlet container
-     * 
+     *
      * @see ServletContext
      */
     public ServletContext getServletContext();
 
-    
+
     /**
      * Gets the value of the initialization parameter with the given name.
      *
      * @param name the name of the initialization parameter whose value to
      * get
      *
-     * @return a <code>String</code> containing the value 
-     * of the initialization parameter, or <code>null</code> if 
+     * @return a <code>String</code> containing the value
+     * of the initialization parameter, or <code>null</code> if
      * the initialization parameter does not exist
      */
     public String getInitParameter(String name);
@@ -63,12 +65,12 @@ import java.util.Enumeration;
 
     /**
      * Returns the names of the servlet's initialization parameters
-     * as an <code>Enumeration</code> of <code>String</code> objects, 
+     * as an <code>Enumeration</code> of <code>String</code> objects,
      * or an empty <code>Enumeration</code> if the servlet has
      * no initialization parameters.
      *
-     * @return an <code>Enumeration</code> of <code>String</code> 
-     * objects containing the names of the servlet's 
+     * @return an <code>Enumeration</code> of <code>String</code>
+     * objects containing the names of the servlet's
      * initialization parameters
      */
     public Enumeration<String> getInitParameterNames();
