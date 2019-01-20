@@ -22,7 +22,7 @@ import java.util.EventListener;
 /**
  * Interface for receiving notification events about HttpSession
  * attribute changes.
- *
+ *当 HttpSession 属性变化时,将会收到通知.
  * <p>In order to receive these notification events, the implementation
  * class must be either declared in the deployment descriptor of the web
  * application, annotated with {@link javax.servlet.annotation.WebListener},
