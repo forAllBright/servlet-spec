@@ -19,10 +19,10 @@ package javax.servlet.http;
 
 import java.util.EventListener;
 
-/** 
+/**
  * Interface for receiving notification events about HttpSession
  * lifecycle changes.
- *
+ *接口.当 HttpSession 被创建/销毁(生命周期变化)时.将会收到通知.
  * <p>In order to receive these notification events, the implementation
  * class must be either declared in the deployment descriptor of the web
  * application, annotated with {@link javax.servlet.annotation.WebListener},
@@ -39,8 +39,8 @@ import java.util.EventListener;
  * @since Servlet 2.3
  */
 public interface HttpSessionListener extends EventListener {
-    
-    /** 
+
+    /**
      * Receives notification that a session has been created.
      *
      * @implSpec
@@ -49,8 +49,8 @@ public interface HttpSessionListener extends EventListener {
      * @param se the HttpSessionEvent containing the session
      */
     default public void sessionCreated(HttpSessionEvent se) {}
-    
-    /** 
+
+    /**
      * Receives notification that a session is about to be invalidated.
      *
      * @implSpec
