@@ -82,7 +82,8 @@ public interface HttpServletResponse extends ServletResponse {
      * 			the unchanged URL otherwise.
      * @exception IllegalArgumentException if the url is not valid
      */
-    public String encodeURL(String url);
+    public String encodeURL(String url);//对特点的 url中加入 sessionid 信息；若支持 cookie 则不必加入 sessionid 信息到这个特点的 url；
+    //考虑到程序健壮性，应当为每一个从服务器返回至客户端的 url 使用这个方法来处理，以使得在客户端不支持 cookie 的情况下，而使用重定向 URL 来追踪 session。
 
     /**
      * Encodes the specified URL for use in the
